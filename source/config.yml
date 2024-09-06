@@ -12,6 +12,10 @@ name: 'e20b64'
 scripts: './CODES-pipeline/source'
 
 
+# In all the categories you will find a 'seed' option. This is to fix the randomness of the code, making it reproducible. 
+# If you want to try different runs of randomness you will need to change the seeds each time to other integers.
+
+
 # The prep part is for the data preparation before it goes into CODEX. 
 # Here we create the training/validation/test split and interpolate the data.
 # This you can leave alone. 
@@ -56,17 +60,19 @@ training:
 prototypes:
   n_prototypes: 5  ####### CHANGE HOW MANY PROTOTYPES YOU WANT TO SEE PER CATEGORY 
   threshold_confidence: 0.75  ####### (This can be left as is or) CHANGE THE THRESHOLD OF CONFIDENCE YOU WANT THE UNCORRELATED TRAJECTORIES TO BE SELECTED FROM 
-  
+  batch: 2048  ####### Set this lower than the number of trajectories in your dataset
+
   # leave as is
   seed: 7
-  batch: 2048
+  
 
 pca:
   perc_selected_ids: 0.1  ####### CHANGE HOW MANY OF THE ORIGINAL NUMBER OF CELLS YOU WANT IN A RANDOM PCA PLOT, THIS IS ESPECIALLY IMPORTANT IF THERE ARE TOO MANY CELLS TO GET A GOOD OVERVIEW
   threshold_confidence: 0.75  ####### (This can be left as is or) CHANGE THE THRESHOLD OF CONFIDENCE YOU WANT THE UNCORRELATED TRAJECTORIES TO BE SELECTED FROM 
-  
+  batch: 2048  ####### Set this lower than the number of trajectories in your dataset
+
   # leave as is
   seed: 7
-  batch: 2048
+  
   
 
