@@ -5,7 +5,7 @@ This is a pipeline made for CODEX (https://github.com/pertzlab/CODEX) using snak
 ## Installing CODEX
 Tthe environment for CODEX is created using a singularity image or CONDA. 
 
-To create a singularity environment run 'singularity build sing_CODEX_CPU_pipeline_motif.sif sing_CODEX_CPU_pipeline_motif.def' to creat the image. Currently the image is only woking with CPU. Alternatively, a GPU-compatible environment can be created in CONDA by running 'conda env create -f CODEX-pipeline-conda.yml'. Both environement files can be found in the 'conda' folder. 
+To create a singularity environment run `singularity build sing_CODEX_CPU_pipeline_motif.sif sing_CODEX_CPU_pipeline_motif.def` to creat the image. Currently the image is only woking with CPU. Alternatively, a GPU-compatible environment can be created in CONDA by running `conda env create -f CODEX-pipeline-conda.yml`. Both environement files can be found in the `conda` folder. 
 
 ## Data preparation
 The input to the pipeline is similar to what is required from CODEX. The class definition file and the dataset file need to be the same format as described in https://github.com/pertzlab/CODEX, except that interpolation is not necessary in the dataset as it is done within the pipeline. The set with the allocatement of training, validation, and test to the IDs is not required as input, it will be created with the percentages definined in the pipeline configurations. The data does not need to be zipped either as an archive will be created after creating the id allocation set. It does however need to be in a separate directory, which Snakemake can be run in. 
@@ -14,7 +14,7 @@ The input to the pipeline is similar to what is required from CODEX. The class d
 This is a short description of how to use the pipeline for CODEX:
 
 1. Create two files according to original description:
-    - dataset.csv: this is the file that contains the time-series. The data are organized in 
+    - `dataset.csv`: this is the file that contains the time-series. The data are organized in 
     wide format (series on rows, measurements on columns). It must contain 2 columns: ID and class 
     (the column names are flexible but these names will be automatically recognized without 
     further input from the user). The ID should be unique to each series. The classes should be 
@@ -25,8 +25,8 @@ This is a short description of how to use the pipeline for CODEX:
     at time point 12). Shall you have multivariate series, just append new columns while 
     respecting the naming convention. For example, for a dataset of 3 time points where you follow 
     both ERK and AKT in single cells the column names should be: 
-        ID, class, ERK_1, ERK_2, ERK_3, AKT_1, AKT_2, AKT_3
-    - classes.csv: this file holds the correspondence between the dummy-coded classes and their 
+        `ID, class, ERK_1, ERK_2, ERK_3, AKT_1, AKT_2, AKT_3`
+    - `classes.csv`: this file holds the correspondence between the dummy-coded classes and their 
     actual names. It is a small file with 2 columns: class and class_name. The former holds the 
     same dummy-coded variables as in dataset.csv; while the second holds the human-readable 
     version of it. Once again please try to stick to these default column names so you do not have to 
@@ -36,13 +36,13 @@ This is a short description of how to use the pipeline for CODEX:
 
 
 2. Put both the dataset.csv and the classes.csv file in the same folder. 
-    Additionally, a configuration file is provided (config.yaml) which should go into the same 
+    Additionally, a configuration file is provided (`config.yaml`) which should go into the same 
     directory. That is where the many parameters for CODEX are set. 
     Your directory for CODEX should now look like this:
-    - directory:
-        - dataset.csv
-        - classes.csv
-        - config.yaml
+    - `directory`:
+        - `dataset.csv`
+        - `classes.csv`
+        - `config.yaml`
 
 3. Now set the parameters in the config.yaml file. The important parameters to set will be marked with #######
     before their explainations and everything else can be left as is. All parameters should be 
@@ -50,18 +50,18 @@ This is a short description of how to use the pipeline for CODEX:
 
 4. To run the pipeline activate the conda environment by typing 'conda activate codex' into the terminal. 
     In case the environment isn't setup yet, use the environemnt yml file to create one: 
-    'conda env create -f CODEX-pipeline-conda.yml'
+    `conda env create -f CODEX-pipeline-conda.yml`
     
 5. Adjust the working directory $WD variable in the slurm job file PIPELINE.sh by setting it to the path of the directory
     with the data and configuration file and run it. Depending on 
     how large your dataset is you might also want to adjust the slurm job resources. 
-    For 150'000 cells measured, we used 20h, with 12 cpus where each had 30gb of memory. 
-    #SBATCH --cpus-per-task=12
-    #SBATCH --mem-per-cpu=30GB
-    #SBATCH --time=20:00:00
+    For 150'000 cells measured, we used 20h, with 12 cpus where each had 30gb of memory. <br />
+    `#SBATCH --cpus-per-task=12` <br />
+    `#SBATCH --mem-per-cpu=30GB` <br />
+    `#SBATCH --time=20:00:00` <br />
     Consider running the pipeline on GPU instead, it would make it much faster and use less resources.
 
-    Alternatively, the pipeline can be run locally from the commandline with 'snakemake -s ./source/Snakefile.txt -d path/to/working/directory --configfile ./source/config.yaml'.
+    Alternatively, the pipeline can be run locally from the commandline with `snakemake -s ./source/Snakefile.txt -d path/to/working/directory --configfile ./source/config.yaml`.
 
     NOTE: It is only possible to run one analysis at a time per working directory, as snakemake does not allow for more.
 
@@ -71,7 +71,7 @@ To explore the feature space in the form of a PCA to gain more insight into what
 To run the interactive PCA it is recommended to use jupyter notebook instead of VSCode. 
 
 1. In the terminal type go to the folder where the interactive Notebook is stored. Then enter
-        jupyter notebook
+        `jupyter notebook`
 
     This will start up a jupyter notebook on your browser.
 
