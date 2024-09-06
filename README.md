@@ -1,6 +1,7 @@
-# Pipelining CODEX
+# Pipelining Mulitvariate CODEX
 
 This is a pipeline made for CODEX (https://github.com/pertzlab/CODEX) using snakemake. The Pipeline is using the CNN-training, the prototype selection, and the motif mining from CODEX. A PCA has been added as well as the option to have an interactive exploration of the PCA results in a notebook separate from the pipeline. The motif analysis part of CODEX which is done in R has not yet been integrated into the pipeline and needs to be set up locally. 
+CODEX has been extended to include a model that is able to process multivariate time series. It was previously restricted to two measurements per ID.
 
 ## Installing CODEX
 Tthe environment for CODEX is created using a singularity image or CONDA. 
