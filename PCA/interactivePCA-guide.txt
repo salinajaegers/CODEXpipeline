@@ -1,0 +1,15 @@
+To run the interactive PCA it is recommended to use jupyter notebook instead of VSCode. 
+
+1. In the terminal type:
+        cd /Volumes/imaging.data/PertzLab/Salina/interactivePCA \\
+        jupyter notebook
+
+    This will get you into the folder with the PCA data and notebook and then start up a jupyter notebook on your browser.
+
+2. In the notebook adjust the paths to the datset.csv and the PCA results from the CODEX analysis.
+
+3. Shift + Enter to execute the notebook
+
+4. On the bottom the clickable PCA should now be displayed. Clicking on any point opens up a tab and 
+    saves a .html file with the information about that point in the interactivePCA directory. 
+    (Note: Only the PCA in the notebook is interactive, not the new ones opened in the tabs.)

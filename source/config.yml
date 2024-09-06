@@ -1,0 +1,72 @@
+####### The name of the zip file where all the data files (dataset.csv, classes.csv, id_set.csv) are stored
+####### This will be created in the first pipeline run and after that the individual data files can be deleted 
+data: '5cells_0-001_129_RF_balanced'
+
+####### The name is what the results of this particular pipeline run will be called, best to name it 
+#######    something that makes you remember what the settings in the pipeline were. 
+####### Should you give two different runs the same name, the previous one WILL BE OVERWRITTEN!! 
+#######    so be careful with names
+name: 'e20b64'
+
+####### set the path to where the source directory is but leave this be after initial setup
+scripts: './CODES-pipeline/source'
+
+
+# The prep part is for the data preparation before it goes into CODEX. 
+# Here we create the training/validation/test split and interpolate the data.
+# This you can leave alone. 
+prep:
+  training: 0.6
+  validation: 0.25
+  test: 0.15
+  seed: 2
+
+
+# These are the settings for the main CNN part of CODEX. Luckily, CODEX can detect parameters 
+# by itself (most of the time) so not much to adjust unless you want to.
+# What you might want to mainly change are the epochs, this is how long the CNN is training for.
+training:
+
+  #for the model
+  nclass: 
+  length: 
+  nfeatures: 10
+  batch: 64
+  lr: 0.01
+  schedule: 
+  gamma: 0.01
+  penalty: 0.001
+
+  # For the data
+  # The start and end time setting does not work properly in CODEX, so just adjust that manually when preparing the dataset
+  measurement:
+  startTime: 
+  endTime: 
+
+  # For the trainer
+  nepochs: 20   ####### THIS YOU MIGHT WANT TO CHANGE AND EXPERIMENT WITH, TRY ANYWHERE BETWEEN 3 AND 100 DEPENDING ON DATASET
+  ngpu: 0
+  ncpuLoad: 10
+
+  # Logs and reproducibility
+  seed: 7
+
+
+# this is for the prototype output
+prototypes:
+  n_prototypes: 5  ####### CHANGE HOW MANY PROTOTYPES YOU WANT TO SEE PER CATEGORY 
+  threshold_confidence: 0.75  ####### (This can be left as is or) CHANGE THE THRESHOLD OF CONFIDENCE YOU WANT THE UNCORRELATED TRAJECTORIES TO BE SELECTED FROM 
+  
+  # leave as is
+  seed: 7
+  batch: 2048
+
+pca:
+  perc_selected_ids: 0.1  ####### CHANGE HOW MANY OF THE ORIGINAL NUMBER OF CELLS YOU WANT IN A RANDOM PCA PLOT, THIS IS ESPECIALLY IMPORTANT IF THERE ARE TOO MANY CELLS TO GET A GOOD OVERVIEW
+  threshold_confidence: 0.75  ####### (This can be left as is or) CHANGE THE THRESHOLD OF CONFIDENCE YOU WANT THE UNCORRELATED TRAJECTORIES TO BE SELECTED FROM 
+  
+  # leave as is
+  seed: 7
+  batch: 2048
+  
+
