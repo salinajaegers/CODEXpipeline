@@ -10,6 +10,7 @@ import pandas as pd
 
 
 class LitConvNetCam(pl.LightningModule):
+    """ The model used for univariate time series"""
 
     def __init__(self, batch_size, lr_scheduler_milestones, lr_gamma, nclass, nfeatures, length, nmeasurement, lr=1e-2, L2_reg=1e-3, top_acc=1, loss=torch.nn.CrossEntropyLoss()):
         super().__init__()
@@ -161,6 +162,7 @@ class LitConvNetCam(pl.LightningModule):
 
 
 class LitConvNetCamBi(pl.LightningModule):
+    """ The model used for bivariate time series"""
 
     def __init__(self, batch_size, lr_scheduler_milestones, lr_gamma, nclass, nfeatures, length, nmeasurement, lr=1e-2, L2_reg=1e-3, top_acc=1, loss=torch.nn.CrossEntropyLoss()):
         super().__init__()
@@ -323,6 +325,7 @@ class LitConvNetCamBi(pl.LightningModule):
 
 
 class LitConvNetCamMulti(pl.LightningModule):
+    """ The model used for multivariate time series"""
 
     def __init__(self, batch_size, lr_scheduler_milestones, lr_gamma, nclass, nfeatures, length, nmeasurement, lr=1e-2, L2_reg=1e-3, top_acc=1, loss=torch.nn.CrossEntropyLoss()):
         super().__init__()

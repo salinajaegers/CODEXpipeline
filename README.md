@@ -4,7 +4,7 @@ This is a pipeline made for CODEX (https://github.com/pertzlab/CODEX) using snak
 CODEX has been extended to include a model that is able to process multivariate time series. It was previously restricted to two measurements per ID.
 
 ## Installing CODEX
-Tthe environment for CODEX is created using a singularity image or CONDA. 
+The environment for CODEX is created using a singularity image or CONDA. 
 
 To create a singularity environment run `singularity build sing_CODEX_CPU_pipeline_motif.sif sing_CODEX_CPU_pipeline_motif.def` to creat the image. Currently the image is only woking with CPU. Alternatively, a GPU-compatible environment can be created in CONDA by running `conda env create -f CODEX-pipeline-conda.yml`. Both environement files can be found in the `conda` folder. 
 

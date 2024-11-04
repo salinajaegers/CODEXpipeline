@@ -20,7 +20,6 @@ from copy import deepcopy
 
 # Custom functions/classes
 path_to_module = snakemake.params.scripts  # Path where all the .py files are, relative to the notebook folder
-#path_to_module = './'
 sys.path.append(path_to_module)
 
 from class_dataset import RandomCrop, Subtract, ToTensor, myDataset
@@ -46,8 +45,7 @@ np.random.seed(myseed)
 # Parameters
 data_file = snakemake.params.zip
 model_file = snakemake.params.model
-#data_file = './ERKH/ERKH.zip'
-#model_file = './model/ERKKTR_model.pytorch'
+
 
 
 start_time = None
@@ -60,7 +58,6 @@ batch_sz = config_pca['batch']  # set as high as GPU memory can handle for speed
 rand_crop = True
 set_to_project = 'all'  # one of ['all', 'train', 'validation', 'test']
 
-#n_pca = config_pca['n_pca']
 n_pca = 2
 #---------------------------------------------------------------------------------------------------
 # Model Loading
@@ -224,7 +221,7 @@ plt.savefig(out_dir + '/pca_all.pdf', format='pdf', bbox_inches="tight")
 plt.close()
 
 
-######### INDIVIDUAL CLASSES ############################################################################################################################################
+######### INDIVIDUAL CLASSES ##################################################################################################################################
 
 for ind, val in enumerate(np.unique(df_original['Class'])):
     df_class = df_original.loc[df_original['Class'] == val]
@@ -245,7 +242,7 @@ for ind, val in enumerate(np.unique(df_original['Class'])):
 
 
 
-######### TOPS, RANDOMS, WORSTS, UNCORR DATA ############################################################################################################################################
+######### TOPS, RANDOMS, WORSTS, UNCORR DATA ##################################################################################################################
 # Helper functions for plotting
 col_id = data.col_id
 col_class = data.col_class
@@ -370,8 +367,6 @@ np.random.seed(myseed)
 # Parameters
 data_file = snakemake.params.zip
 model_file = snakemake.params.model
-#data_file = './ERKH/ERKH.zip'
-#model_file = './model/ERKKTR_model.pytorch'
 
 
 start_time = None
@@ -384,7 +379,6 @@ batch_sz = config_pca['batch']  # set as high as GPU memory can handle for speed
 rand_crop = True
 set_to_project = 'test'  # one of ['all', 'train', 'validation', 'test']
 
-#n_pca = config_pca['n_pca']
 n_pca = 2
 #---------------------------------------------------------------------------------------------------
 # Model Loading
@@ -523,21 +517,18 @@ df_original.to_csv(out_dir + '/pca_all_test.csv', index=False)
 df_original = pd.DataFrame(df_original)
 
 Nclasses = len(np.unique(df_original['Class']))
-#cmap = plt.cm.get_cmap('hsv')
 cmap = clr.LinearSegmentedColormap.from_list('Zissou1', ["#3B9AB2", "#78B7C5", "#EBCC2A", "#E1AF00", "#F21A00"], N=100)
 
 
 
 label_color_dict = {label: cmap(np.linspace(0,1,Nclasses))[idx] for idx, label in enumerate(np.unique(df_original['Class']))}
-#colors = [cmap(label_color_dict[label]) for label in df_original['Class']]
 
 colors = [label_color_dict[label] for label in df_original['Class']]
-#colors = df_original['Class'].astype(str).map(colors)
+
 
 
 plt.scatter(df_original[0], df_original[1], alpha=0.1, c=colors)
 custom_lines = [Line2D([0], [0], color=cmap(np.linspace(0,1,Nclasses))[i], lw=4) for i, cl in enumerate(cmap(np.linspace(0,1,Nclasses)))]
-#custom_lines = [Line2D([0], [0], color=label_color_dict[cl], lw=4) for cl in label_color_dict.keys()]
 plt.legend(custom_lines, label_color_dict.keys(), loc='upper left', bbox_to_anchor=(1.04, 1))
 
 # Add the axis labels
@@ -566,8 +557,7 @@ np.random.seed(myseed)
 # Parameters
 data_file = snakemake.params.zip
 model_file = snakemake.params.model
-#data_file = './ERKH/ERKH.zip'
-#model_file = './model/ERKKTR_model.pytorch'
+
 
 
 start_time = None
@@ -580,7 +570,6 @@ batch_sz = config_pca['batch']  # set as high as GPU memory can handle for speed
 rand_crop = True
 set_to_project = 'validation'  # one of ['all', 'train', 'validation', 'test']
 
-#n_pca = config_pca['n_pca']
 n_pca = 2
 #---------------------------------------------------------------------------------------------------
 # Model Loading
@@ -719,21 +708,18 @@ df_original.to_csv(out_dir + '/pca_all_validation.csv', index=False)
 df_original = pd.DataFrame(df_original)
 
 Nclasses = len(np.unique(df_original['Class']))
-#cmap = plt.cm.get_cmap('hsv')
+
 cmap = clr.LinearSegmentedColormap.from_list('Zissou1', ["#3B9AB2", "#78B7C5", "#EBCC2A", "#E1AF00", "#F21A00"], N=100)
 
 
 
 label_color_dict = {label: cmap(np.linspace(0,1,Nclasses))[idx] for idx, label in enumerate(np.unique(df_original['Class']))}
-#colors = [cmap(label_color_dict[label]) for label in df_original['Class']]
 
 colors = [label_color_dict[label] for label in df_original['Class']]
-#colors = df_original['Class'].astype(str).map(colors)
 
 
 plt.scatter(df_original[0], df_original[1], alpha=0.1, c=colors)
 custom_lines = [Line2D([0], [0], color=cmap(np.linspace(0,1,Nclasses))[i], lw=4) for i, cl in enumerate(cmap(np.linspace(0,1,Nclasses)))]
-#custom_lines = [Line2D([0], [0], color=label_color_dict[cl], lw=4) for cl in label_color_dict.keys()]
 plt.legend(custom_lines, label_color_dict.keys(), loc='upper left', bbox_to_anchor=(1.04, 1))
 
 # Add the axis labels
@@ -765,8 +751,7 @@ np.random.seed(myseed)
 # Parameters
 data_file = snakemake.params.zip
 model_file = snakemake.params.model
-#data_file = './ERKH/ERKH.zip'
-#model_file = './model/ERKKTR_model.pytorch'
+
 
 
 start_time = None
@@ -779,7 +764,6 @@ batch_sz = config_pca['batch']  # set as high as GPU memory can handle for speed
 rand_crop = True
 set_to_project = 'train'  # one of ['all', 'train', 'validation', 'test']
 
-#n_pca = config_pca['n_pca']
 n_pca = 2
 #---------------------------------------------------------------------------------------------------
 # Model Loading
@@ -918,21 +902,17 @@ df_original.to_csv(out_dir + '/pca_all_train.csv', index=False)
 df_original = pd.DataFrame(df_original)
 
 Nclasses = len(np.unique(df_original['Class']))
-#cmap = plt.cm.get_cmap('hsv')
 cmap = clr.LinearSegmentedColormap.from_list('Zissou1', ["#3B9AB2", "#78B7C5", "#EBCC2A", "#E1AF00", "#F21A00"], N=100)
 
 
 
 label_color_dict = {label: cmap(np.linspace(0,1,Nclasses))[idx] for idx, label in enumerate(np.unique(df_original['Class']))}
-#colors = [cmap(label_color_dict[label]) for label in df_original['Class']]
 
 colors = [label_color_dict[label] for label in df_original['Class']]
-#colors = df_original['Class'].astype(str).map(colors)
 
 
 plt.scatter(df_original[0], df_original[1], alpha=0.1, c=colors)
 custom_lines = [Line2D([0], [0], color=cmap(np.linspace(0,1,Nclasses))[i], lw=4) for i, cl in enumerate(cmap(np.linspace(0,1,Nclasses)))]
-#custom_lines = [Line2D([0], [0], color=label_color_dict[cl], lw=4) for cl in label_color_dict.keys()]
 plt.legend(custom_lines, label_color_dict.keys(), loc='upper left', bbox_to_anchor=(1.04, 1))
 
 # Add the axis labels

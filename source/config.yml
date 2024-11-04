@@ -74,5 +74,14 @@ pca:
   # leave as is
   seed: 7
   
-  
+
+#### There are two common issues when running CODEX through the pipeline:
+# 1. The pipeline crashes, because the manager detects a running process
+# Solution: Either there really is another process running in the same directory, in this case wait until your other pipeline-run has finished before starting another.
+#        OR, another process is dectected by accident, in this case delete the '.snakemake' folder inside your working directory to reset the pipeline environment
+#
+# 2. The pipeline runs but when it gets to the pca and prototypes it only manages to create some files but not others
+# Solution: This means that the batch size for the pca and the protoypes is larger than the data available. The batch size needs to be lower than any of the subsets we are working with for the prototypes.
+#           Therefore if your data only has e.g., 2 trajectories exceeding the threshold confidence, then a batch size of 3 will be too much.
+#           Try to adjust either batch size or the threshold for the confidence to avoid this issue.
 

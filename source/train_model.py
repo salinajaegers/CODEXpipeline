@@ -27,23 +27,19 @@ from class_dataset import (FixedCrop, RandomCrop, RandomNoise, RandomShift,
 from load_data import DataProcesser
 from train_utils import AverageMeter, accuracy, even_intervals
 
-#with open(snakemake.params.scripts + '/config.yml', 'r') as file:
 with open('./config.yml', 'r') as file:
     config_file = yaml.safe_load(file)
 
 
 
-# %% Train
 
 def makeLogger(args, dir_logs='logs/', subdir_logs='sublogs/', file_logs=None):
-    #file_data = os.path.splitext(os.path.basename(args.data))[0]  # file name without extension
-    #timestamp = datetime.datetime.now().strftime('%Y-%m-%d-%H__%M__%S')
+    """ Defining on how the loggers are structured and saved """
 
     dir_logs = dir_logs
     if subdir_logs is None:
         subdir_logs = '_'.join(args.measurement)
     if file_logs is None:
-        #file_logs =  '_'.join([timestamp, file_data])
         file_logs = config_file['name'] + '_model'
 
     if not os.path.exists(dir_logs):
@@ -170,6 +166,7 @@ def makeLoaders(args, return_nclass=False, return_length=False, return_measureme
 
 
 def main(config_model, config_trainer, train_loader, validation_loader, nmeasurement, file_model):
+    # Select the model based on the number of measurements
     if nmeasurement == 1:
         model = LitConvNetCam(**config_model)
     elif nmeasurement == 2:
@@ -180,6 +177,7 @@ def main(config_model, config_trainer, train_loader, validation_loader, nmeasure
         raise NotImplementedError('This script is intended for monovariate and bivariate measurements only.\
              To extend to higher dimensions, create the appropriate model and call it the main() function.')
     model.double()
+    # initialize the trainer and run it
     trainer = pl.Trainer(**config_trainer)
     trainer.fit(model, train_loader, validation_loader)
     torch.save(model, file_model)
@@ -190,9 +188,6 @@ class AttrDict(dict):
         self.__dict__ = self
 
 if __name__ == '__main__':
-    #parser = makeParser()
-    #args = parser.parse_args()
-
     config_training = config_file['training']
     config_training['logdir'] = './logs'
     config_training['data'] = snakemake.params.zip
@@ -202,8 +197,6 @@ if __name__ == '__main__':
         if str(config_training[key]) == '' or str(config_training[key]) == 'None':
             config_training[key] = None
 
-    #for key in ['nfeatures', 'batch', 'lr', 'gamma', 'penalty', 'nepochs', 'ngpu', 'ncpuLoad', 'seed']:
-    #    config_training[key] = float(config_training[key])
     args = AttrDict(config_training)
 
     pl.utilities.seed.seed_everything(args.seed)

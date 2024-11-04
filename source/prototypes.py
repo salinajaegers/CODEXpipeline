@@ -44,8 +44,7 @@ assert prototypes_set in ['train', 'validation', 'test', 'all']
 
 data_file = snakemake.params.zip
 model_file = snakemake.params.model
-#data_file = './ERKH/ERKH.zip'
-#model_file = './model/ERKKTR_model.pytorch'
+
 
 batch_size = config_prototypes['batch'] # Set as high as your memory allows to speed up
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -136,7 +135,6 @@ conft['Precision'] = accuracy
 print(conft)
 
 # Path where to export plots and table with prototypes
-#out_dir = '/data/users/sjaegers/research_project/prototypes/AKT_50_m3/' + '_'.join(meas_var) + '/prototypes'
 out_dir = './results_' + name + '/prototypes'
 if not os.path.exists(out_dir):
     os.makedirs(out_dir)
@@ -174,7 +172,7 @@ def make_subset_forPlot(sel_ids, sel_id_vars = [col_id, col_class]):
     subset = pd.merge(subset, data.classes, left_on=col_class, right_on=col_class)
     return(subset)
 
-#["#3B9AB2", "#78B7C5", "#EBCC2A", "#E1AF00", "#F21A00"]
+
 def make_grid_plot(in_data, ncol_plot, sharex=True, sharey=True, ylim=(None, None), yscale='linear', out_file=None):
     sns.set_style('ticks')
     sns.set_context('paper')

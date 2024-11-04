@@ -12,8 +12,6 @@ from re import search
 from collections import OrderedDict
 
 
-#TODO: make a single dataset class for both bi and univariate
-#TODO: when exporting random crop positions, ToTensor() must be called right after RandomCrop(), modify this to have it in __getitem__
 class myDataset(Dataset):
     """Standard dataset object with ID, class"""
 
@@ -72,11 +70,14 @@ class myDataset(Dataset):
 
         return sample
 
-    # Callback function used in imbalanced dataset loader
+    
     def get_labels(self):
+        """ Callback function used in imbalanced dataset loader """
         return list(self.dataset[self.col_class].astype(int))
 
+    
     def detect_groups(self):
+        """ Detect the measurements """
         colnames = list(self.dataset.columns.values)
         colnames.remove(self.col_id)
         colnames.remove(self.col_class)

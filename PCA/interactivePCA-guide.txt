@@ -1,7 +1,8 @@
 To run the interactive PCA it is recommended to use jupyter notebook instead of VSCode. 
 
-1. In the terminal type:
-        cd /Volumes/imaging.data/PertzLab/Salina/interactivePCA \\
+1. In the terminal go to the interactivePCA folder where all the code is stored and 
+    then open juyper notebook:
+        cd ./interactivePCA \\
         jupyter notebook
 
     This will get you into the folder with the PCA data and notebook and then start up a jupyter notebook on your browser.

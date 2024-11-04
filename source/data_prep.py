@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 
 # get dataset
-#with open(snakemake.params.scripts + '/config.yml', 'r') as file:
+
 with open('./config.yml', 'r') as file:
     config_file = yaml.safe_load(file)
 
@@ -14,8 +14,6 @@ name = config_file['name']
 
 dataset = pd.read_csv(snakemake.input.dataset)
 classes = pd.read_csv(snakemake.input.classes)
-#dataset = pd.read_csv('./ERKH/data/dataset.csv')
-#classes = pd.read_csv('./ERKH/data/classes.csv')
 
 colnames = list(dataset.columns.values)
 colnames.remove('ID')
